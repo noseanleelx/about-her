@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To My Beautiful Girlfriend</title>
+  <style>
+    /* Warm romantic gradient background */
+body {
+  margin: 0;
+  padding: 0;
+
+  background:
+    radial-gradient(circle at top left, #ff7b9c 0%, transparent 35%),
+    radial-gradient(circle at bottom right, #d96a8a 0%, transparent 35%),
+    linear-gradient(135deg, #4a2332 0%, #6d3047 50%, #8a3f5b 100%);
+
+  min-height: 140vh;
+  font-family: 'Georgia', serif;
+  overflow-x: hidden;
+}
+    /* --- FALLING HEARTS ANIMATION --- */
+    .heart-flake {
+      position: fixed;
+      top: -10%;
+      color: rgba(255, 182, 193, 0.45);
+text-shadow: 0 0 10px rgba(255,182,193,0.5);
+      font-size: 20px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { top: -10%; transform: translateX(0) rotate(0deg); }
+      100% { top: 110%; transform: translateX(100px) rotate(360deg); }
+    }
+
+    /* Background gallery frame wrapper */
+    .background-gallery {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle,
+      transparent 40%,
+      rgba(0,0,0,0.25) 100%
+    );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+    /* The visual string line and fairy lights */
+    .string-line, .fairy-lights {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1000px;
+    }
+    .string-line { z-index: 2; }
+    .fairy-lights { z-index: 1; }
+
+    /* Polaroid photo cards */
+.photo-card {
+  position: absolute;
+  pointer-events: auto;
+
+  background: #e7d8dc;
+
+  padding: 10px 10px 15px 10px;
+
+  border: 1px solid rgba(120, 80, 90, 0.15);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15),
+    0 0 15px rgba(255,182,193,0.15);
+
+  border-radius: 2px;
+
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.4s ease;
+}
+    .photo-card img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Polaroid caption style */
+    .photo-caption {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: #635052;
+      font-style: italic;
+      font-weight: bold;
+      text-align: center;
+      width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+.star {
+  position: fixed;
+  color: rgba(255,255,255,0.9);
+  pointer-events: none;
+  z-index: 0;
+
+  animation: twinkleStar 3s ease-in-out infinite;
+text-shadow:
+  0 0 5px rgba(255,255,255,0.8),
+  0 0 15px rgba(255,220,230,0.8),
+  0 0 25px rgba(255,182,193,0.6);
+}
+
+@keyframes twinkleStar {
+  0%,100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+.p-top1,
+.p-top2,
+.p-top3,
+.p-corner,
+.p-side1,
+.p-side2,
+.p-side3 {
+  animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%,100% {
+    translate: 0px 0px;
+  }
+  50% {
+    translate: 0px 6px;
+  }
+}
+
+    /* Heart shaped clips */
+    .photo-card::before {
+      content: '♥';
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ff4d6d;
+      font-size: 24px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 4;
+    }
+
+    /* Photo Coordinates */
+    .p-top1 { top: 40px; left: 12%; transform: rotate(-4deg); }
+    .p-top2 { top: 45px; left: 38%; transform: rotate(5deg); }
+    .p-top3 { top: 50px; left: 62%; transform: rotate(-3deg); }
+    .p-corner { top: 100px; right: 8%; transform: rotate(8deg); }
+    .p-side1 { top: 320px; right: 4%; transform: rotate(-6deg); }
+    .p-side2 { top: 550px; right: 5%; transform: rotate(5deg); }
+    .p-side3 { top: 780px; right: 3%; transform: rotate(-4deg); }
+
+    /* Zoom interaction */
+ .photo-card:hover {
+  animation-play-state: paused;
+
+  transform: rotate(0deg) scale(1.4) translateY(-15px);
+
+  z-index: 20;
+
+  box-shadow:
+    0 0 20px rgba(255,182,193,0.7),
+    0 20px 40px rgba(255,77,109,0.4);
+}
+
+    /* --- ROMANTIC INTERFACE CONTENT --- */
+.main-content {
+  position: relative;
+  z-index: 5;
+
+  max-width: 650px;
+
+  margin: 260px auto 60px auto;
+
+  padding: 50px;
+
+  background: rgba(235, 210, 218, 0.88);
+
+  backdrop-filter: blur(15px);
+
+  border-radius: 40px;
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 0 40px rgba(255,182,193,0.15),
+    0 20px 60px rgba(0,0,0,0.35);
+
+  text-align: center;
+}
+.moon {
+  position: fixed;
+  top: 40px;
+  right: 50px;
+
+  font-size: 60px;
+
+  z-index: 0;
+
+  filter:
+    drop-shadow(0 0 15px rgba(255,255,255,0.5));
+}
+
+  .main-content h1 {
+  font-size: 3rem;
+  color: #ff4d6d;
+  margin-bottom: 10px;
+
+  text-shadow:
+    0 0 10px rgba(255,77,109,0.5),
+    0 0 20px rgba(255,77,109,0.3);
+
+  animation: titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+    /* Counter Display Box */
+    .counter-box {
+      background: rgba(255, 77, 109, 0.08);
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      color: #ff4d6d;
+      font-weight: bold;
+      margin: 20px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .main-content p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #594a4c;
+      margin-bottom: 25px;
+    }
+
+    /* Interactive Reveal Button & Secret Box */
+    .love-btn {
+      background: #ff4d6d;
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-family: 'Georgia', serif;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+      transition: transform 0.2s, background 0.2s;
+      pointer-events: auto;
+    }
+    .love-btn:hover {
+      background: #ff1443;
+      transform: scale(1.05);
+    }
+    .secret-letter {
+      display: none;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px dashed #ffb3c1;
+      text-align: left;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart-divider {
+      color: #ffb3c1;
+      font-size: 1.5rem;
+      margin: 15px 0;
+    }
+.sparkle {
+  position: fixed;
+  color: rgba(255,255,255,0.8);
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 0;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+.big-heart {
+  position: fixed;
+  color: rgba(255,77,109,0.08);
+  font-size: 180px;
+  pointer-events: none;
+  z-index: -1;
+  animation: floatHeart 10s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-30px); }
+}
+.fairy-lights {
+  filter:
+    drop-shadow(0 0 5px #fff)
+    drop-shadow(0 0 15px #ffb6c1)
+drop-shadow(0 0 25px #ff8fab)
+    drop-shadow(0 0 25px #ffef99);
+}
+.title-heart {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 120px;
+  color: rgba(255,77,109,0.12);
+
+  z-index: -1;
+}
+#website-content {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+#intro-screen {
+  position: fixed;
+  inset: 0;
+
+  background: #14050d;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+
+  transition: opacity 1.5s ease;
+}
+
+.envelope {
+  position: relative;
+
+  width: 350px;
+  height: 220px;
+  z-index: 10000;
+
+  cursor: pointer;
+}
+
+/* Main envelope */
+.envelope-bottom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: #ecd6dd;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 40px rgba(255,182,193,0.2),
+    0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* Left fold */
+.envelope-left {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+
+  background: #e0c5cd;
+
+  clip-path: polygon(0 0,100% 50%,0 100%);
+
+  z-index: 2;
+}
+
+/* Right fold */
+.envelope-right {
+  position: absolute;
+  right: 0;
+
+  width: 50%;
+  height: 100%;
+
+  background: #d8bbc4;
+
+  clip-path: polygon(100% 0,0 50%,100% 100%);
+
+  z-index: 2;
+}
+
+/* Top flap */
+.envelope-flap {
+  position: absolute;
+
+  width: 100%;
+  height: 120px;
+
+  background: #f4dde4;
+
+  clip-path: polygon(0 0,100% 0,50% 100%);
+
+  transform-origin: top;
+
+  z-index: 5;
+
+  transition: transform 1.5s ease;
+}
+
+.letter-text {
+  position: absolute;
+
+  top: 125px;
+  width: 100%;
+
+  text-align: center;
+
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  color: #6d3047;
+
+  z-index: 4;
+}
+.envelope {
+  position: relative;
+
+  width: 300px;
+  height: 200px;
+
+  cursor: pointer;
+}
+.envelope-body {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background: #f4d6de;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 0 30px rgba(255,182,193,0.3);
+}
+.envelope-flap {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background: #e8c0cb;
+
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+
+  transform-origin: top;
+
+  transition: transform 1s ease;
+}
+.background-gallery {
+  opacity: 0;
+}
+
+.moon {
+  opacity: 0;
+}
+
+.main-content {
+  opacity: 0;
+}
+.open-text {
+  position: absolute;
+
+  width: 100%;
+
+  text-align: center;
+
+  top: 120px;
+
+  font-size: 1.2rem;
+
+  color: #6d3047;
+
+  font-weight: bold;
+}
+
+
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.envelope {
+  animation: envelopeFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(255,182,193,0.5));
+}
+
+
+/* gentle floating */
+@keyframes envelopeFloat {
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+
+/* shake when waiting to be opened */
+.envelope:hover {
+  animation: shakeEnvelope 0.5s infinite;
+}
+
+
+@keyframes shakeEnvelope {
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+
+  75% {
+    transform: rotate(3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+
+}
+
+
+/* Open Me text animation */
+.letter-text {
+
+  animation:
+    textGlow 2s ease-in-out infinite,
+    textFloat 2s ease-in-out infinite;
+
+}
+
+
+@keyframes textFloat {
+
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+}
+
+
+@keyframes textGlow {
+
+  0%,100% {
+    text-shadow:0 0 5px rgba(255,100,150,0.3);
+  }
+
+  50% {
+    text-shadow:
+      0 0 15px rgba(255,100,150,0.8),
+      0 0 30px rgba(255,182,193,0.8);
+  }
+
+}
+
+
+/* Heart above envelope */
+.envelope::before {
+
+  content:"💗";
+
+  position:absolute;
+
+  top:-60px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:40px;
+
+  animation: heartBounce 2s infinite;
+
+}
+
+
+@keyframes heartBounce {
+
+  0%,100% {
+    transform:translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform:
+    translateX(-50%)
+    translateY(-15px);
+  }
+
+}
+
+
+/* little glow behind envelope */
+#intro-screen::after {
+
+  content:"";
+pointer-events: none;
+
+  position:absolute;
+
+  width:450px;
+  height:300px;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,182,193,0.35),
+  transparent 70%);
+
+  animation:pulseGlow 3s infinite;
+
+}
+
+
+@keyframes pulseGlow {
+
+  0%,100% {
+    opacity:0.5;
+    transform:scale(1);
+  }
+
+  50% {
+    opacity:1;
+    transform:scale(1.2);
+  }
+
+}
+  </style>
+</head>
+<body>
+<div id="intro-screen">
+
+  <div class="envelope" onclick="openEnvelope()">
+
+    <div class="envelope-flap"></div>
+
+    <div class="envelope-left"></div>
+    <div class="envelope-right"></div>
+    <div class="envelope-bottom"></div>
+
+    <div class="letter-text">
+      open meee 🥺
+    </div>
+
+  </div>
+
+</div>
+<div id="website-content">
+<div class="moon">🌙</div>
+  <!-- Background Strings & Fairy Lights Layer -->
+  <div class="background-gallery">
+    <svg class="string-line" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <path d="M 0,60 C 400,65 750,70 850,120 C 950,200 950,400 950,1000" fill="transparent" stroke="#d6bca2" stroke-width="2" />
+    </svg>
+    <svg class="fairy-lights" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <path d="M 0,60 C 400,65 750,70 850,120 C 950,200 950,400 950,1000" fill="transparent" stroke="#fff3b0" stroke-width="6" stroke-linecap="round" stroke-dasharray="1,45" style="filter: drop-shadow(0px 0px 5px #ffe49e);" />
+    </svg>
+
+    <!-- Photos -->
+    <div class="photo-card p-top1"><img src="main.png"><span class="photo-caption">Our First Picture 💖</span></div>
+    <div class="photo-card p-top2"><img src="second.png"><span class="photo-caption">Us Holding Hand 💙</span></div>
+    <div class="photo-card p-top3"><img src="her.png"><span class="photo-caption">🤗</span></div>
+    <div class="photo-card p-corner"><img src="third.png"><span class="photo-caption">Cutie</span></div>
+    <div class="photo-card p-side1"><img src="fifth.jpg"><span class="photo-caption">Pretty</span></div>
+    <div class="photo-card p-side2"><img src="sixth.jpg"><span class="photo-caption"></span></div>
+    <div class="photo-card p-side3"><img src="seven.png"><span class="photo-caption"></span></div>
+  </div>
+
+  <!-- Main Letter Layer -->
+  <main class="main-content">
+<div class="title-heart">❤</div>
+
+    <h1>To The Sweetest Person...</h1>
+    
+    <!-- Live Relationship Milestone Counter Box -->
+    <div class="counter-box" id="milestone-counter">Abigale Low Shin Yi</div>
+    
+    <p>I wanted to create a special little corner of the internet just to remind you of how much you mean to me. Every single picture on this string holds one of my absolute favorite picture of you or us.</p>
+    <p> I don't even know where to begin because there are honestly so many things I want to say to you. I could probably write pages and pages about you, about us, and about everything you've done for me, and I still don't think I would be able to properly explain how grateful I am that you came into my life. </p>
+    <p>Thank you for bringing so much warmth, laughter, and love into my life every single day. I'm so lucky to have you by my side. Even though now we not really are together anymore, I just want to tell you how much i love you. Thank you for being there with me when i needed you. Thank you for all the little things you've done that you probably didn't even realize meant so much to me. Thank you for every conversation, every laugh, every moment we spent together, every time you listened to me, every time you made me smile when I wasn't expecting to, and every memory that you've given me. I notice the way you talk about things you're excited about. I notice the way you react when something makes you happy. I notice your little habits, your expressions, the way you laugh, the way you can make an ordinary moment feel special without even trying.</p>
+    <p> You are always there when i needed you, at my lowest and when i need someone to cry with me and laugh with me. I'm grateful that I got to meet you. I'm grateful that I got to know you. I'm grateful that I got to experience what it feels like to have someone who means this much to me. I'm grateful for every moment, even the ordinary ones. You've taught me a lot too. You've taught me that caring about someone isn't just about saying "I love you" or giving someone gifts or saying nice things. It's about listening. It's about understanding. It's about being patient. It's about trying. It's about learning from your mistakes. It's about appreciating someone while they're beside you instead of only realizing their value afterward. And I know I'm not perfect.</p>
+<p>I know there have been times when I made mistakes. There have been times when I didn't handle things the way I should have. There have been times when I may have hurt you, disappointed you, confused you, or made you feel like I didn't appreciate you enough. For those moments, I'm genuinely sorry. I don't want this letter to pretend that everything has always been perfect, because it hasn't. But I also don't want my mistakes to erase all the things I'm grateful for.My mistakes make me realise how important it is to appreciate someone while you have the chance. I don't want to take you for granted. I don't want to become so comfortable with having you in my life that I forget how special it is that you're there. I don't want to assume you'll always be there. <b> I want to appreciate every moment I get with you.</b>
+    
+    <!-- Clickable Interaction Element -->
+    <button class="love-btn" onclick="revealLetter()">A Letter For You 💖</button>
+    
+    <!-- The Hidden Secret Letter Box -->
+    <div class="secret-letter" id="secret-box">
+      <p style="font-style: italic; color: #ff4d6d; text-align: center; font-weight: bold;"></p>
+      <p>I spend a month plus doing this I hope you like it</p>
+      <p>I love you abigale. I love you to the moon and back and i always will/</p>
+      <p>3. Your laugh—it's hands-down my absolute favorite sound in the entire world.</p>
+    </div>
+</main>
+</div>
+
+  <!-- Dynamic Functions Engine Script -->
+  <script>
+function openEnvelope() {
+
+  document.querySelector(".envelope-flap")
+    .style.transform = "rotateX(180deg)";
+
+  setTimeout(() => {
+
+    document.getElementById("intro-screen")
+      .style.opacity = "0";
+document.getElementById("website-content")
+  .style.opacity = "1";
+
+  }, 1200);
+
+  setTimeout(() => {
+
+    document.getElementById("intro-screen")
+      .style.display = "none";
+
+  }, 2500);
+
+  /* Photos appear first */
+  setTimeout(() => {
+    document.querySelector(".background-gallery")
+      .animate(
+        [
+          {opacity:0},
+          {opacity:1}
+        ],
+        {
+          duration:1500,
+          fill:"forwards"
+        }
+      );
+  }, 1500);
+
+  /* Moon appears second */
+  setTimeout(() => {
+    document.querySelector(".moon")
+      .animate(
+        [
+          {opacity:0},
+          {opacity:1}
+        ],
+        {
+          duration:1500,
+          fill:"forwards"
+        }
+      );
+  }, 2200);
+
+  /* Letter appears last */
+  setTimeout(() => {
+    document.querySelector(".main-content")
+      .animate(
+        [
+          {
+            opacity:0,
+            transform:"translateY(50px)"
+          },
+          {
+            opacity:1,
+            transform:"translateY(0)"
+          }
+        ],
+        {
+          duration:1800,
+          fill:"forwards"
+        }
+      );
+  }, 3000);
+
+}
+
+    // --- 2. REVEAL HIDDEN BOX FUNCTION ---
+    function revealLetter() {
+      const box = document.getElementById('secret-box');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // --- 3. GENERATING THE DRIFTING HEARTS ON THE FLY ---
+    function createHeartFlakes() {
+      for (let i = 0; i < 25; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart-flake';
+        heart.innerText = '♥';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 8 + 's';
+        heart.style.animationDuration = Math.random() * 6 + 6 + 's';
+        heart.style.fontSize = Math.random() * 15 + 12 + 'px';
+        document.body.appendChild(heart);
+      }
+    }
+    createHeartFlakes();
+function createSparkles() {
+  for(let i = 0; i < 50; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.innerHTML = "✦";
+
+    sparkle.style.left = Math.random() * 100 + "vw";
+    sparkle.style.top = Math.random() * 100 + "vh";
+    sparkle.style.animationDelay = Math.random() * 3 + "s";
+
+    document.body.appendChild(sparkle);
+  }
+}
+
+function createBigHearts() {
+  for(let i = 0; i < 6; i++) {
+    const heart = document.createElement("div");
+    heart.className = "big-heart";
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random() * 90 + "vw";
+    heart.style.top = Math.random() * 90 + "vh";
+    heart.style.animationDelay = Math.random() * 5 + "s";
+
+    document.body.appendChild(heart);
+  }
+}
+
+function createPetals() {
+  for(let i=0;i<20;i++) {
+    const petal = document.createElement("div");
+
+    petal.innerHTML = "🌹";
+    petal.style.position = "fixed";
+    petal.style.left = Math.random()*100+"vw";
+    petal.style.top = "-50px";
+    petal.style.fontSize = "20px";
+    petal.style.pointerEvents = "none";
+    petal.style.zIndex = "0";
+
+    petal.animate([
+      {transform:"translateY(0) rotate(0deg)"},
+      {transform:"translateY(110vh) rotate(360deg)"}
+    ],{
+      duration:Math.random()*6000+8000,
+      iterations:Infinity
+    });
+
+    document.body.appendChild(petal);
+  }
+}
+
+createSparkles();
+createBigHearts();
+createPetals();
+function createStars() {
+
+  const starSymbols = ["✦", "✧", "⭐"];
+
+  for(let i = 0; i < 80; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.innerHTML =
+      starSymbols[Math.floor(Math.random() * starSymbols.length)];
+
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+
+    star.style.fontSize =
+      (Math.random() * 10 + 8) + "px";
+
+    star.style.animationDelay =
+      Math.random() * 3 + "s";
+
+    document.body.appendChild(star);
+  }
+}
+
+createStars();
+  </script>
+
+</body>
+</html>
